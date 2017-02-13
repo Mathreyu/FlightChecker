@@ -2,20 +2,18 @@ package com.nearsoft.flights.flightchecker.models;
 
 import java.util.List;
 
-/**
- * Created by Ramon on 2/8/2017.
- */
 
 public class OriginDestinationOption {
-    private List<FlightSegment> flightSegments;
+    private List<FlightSegments> flightSegments;
     private int elapsedTime;
-    private TotalFare totalFare;
+    private double amount;
+    private String currencyCode;
 
-    public List<FlightSegment> getFlightSegments() {
+    public List<FlightSegments> getFlightSegmentses() {
         return flightSegments;
     }
 
-    public void setFlightSegments(List<FlightSegment> flightSegments) {
+    public void setFlightSegmentses(List<FlightSegments> flightSegments) {
         this.flightSegments = flightSegments;
     }
 
@@ -27,11 +25,19 @@ public class OriginDestinationOption {
         this.elapsedTime = elapsedTime;
     }
 
-    public TotalFare getTotalFare() {
-        return totalFare;
+    public double getAmount() {
+        return amount;
     }
 
-    public void setTotalFare(TotalFare totalFare) {
-        this.totalFare = totalFare;
+    public void setAmount(double amount) {
+        this.amount = amount;
+    }
+
+    public String getCurrencyCode() {
+        return currencyCode;
+    }
+
+    public void setCurrencyCode(String currencyCode) {
+        this.currencyCode = currencyCode;
     }
 }

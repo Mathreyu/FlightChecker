@@ -10,8 +10,8 @@ import retrofit2.http.GET;
 
 public interface FlightApi {
 
-    String ENDPOINT = "";
+    String ENDPOINT = "localhost:8080";
 
-    @GET("")
+    @GET("/itinerary")
     Call<List<Itinerary>> getIntineryList();
 }
