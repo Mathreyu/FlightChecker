@@ -64,6 +64,7 @@ public class FlightAdapter extends RecyclerView.Adapter<FlightAdapter.ViewHolder
         TextView departureTime;
         @BindView(R.id.departureAirport)
         TextView departureAirport;
+        //TODO: retrive price from DestinationOptions
         @BindView(R.id.price)
         TextView price;
         @BindView(R.id.flightNumber)
@@ -77,6 +78,12 @@ public class FlightAdapter extends RecyclerView.Adapter<FlightAdapter.ViewHolder
         }
 
         private void bind(FlightSegment flight) {
+
+            arrivalTime.setText(flight.getArrivalDateTime());
+            arrivalAirport.setText(flight.getArrivalAirport());
+            departureTime.setText(flight.getDepartureDateTime());
+            departureAirport.setText(flight.getDepartureAirport());
+            price.setText("200");
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

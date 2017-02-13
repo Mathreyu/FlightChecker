@@ -69,7 +69,7 @@ public class FlightsMain extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<APIResponse> call, Throwable t) {
-                Log.d("Retrofit","failed to load.");
+                Log.d("Retrofit", t.getMessage());
             }
         });
     }
