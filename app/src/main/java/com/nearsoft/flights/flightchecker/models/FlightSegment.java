@@ -6,88 +6,30 @@ package com.nearsoft.flights.flightchecker.models;
 
 public class FlightSegment {
 
-    private Airport departureAirport;
-    private Airport arrivalAirport;
-    private MarketingAirline marketingAirline;
-    private Timezone arrivalTimeZone;
-    private Timezone departureTimeZone;
-    private int stopQuantity;
-    private int elapsedTime;
-    private Equipment equipment;
-    private String departureDateTime;
+    private String airlineCode;
+    private String arrivalAirport;
     private String arrivalDateTime;
-    private OperatingAirline operatingAirline;
+    private String arrivalTimeZone;
+    private String departureAirport;
+    private String departureDateTime;
+    private String departureTimeZone;
+    private Integer flightNumber;
+    private Integer stopQuantity;
 
-    public Airport getDepartureAirport() {
-        return departureAirport;
+    public String getAirlineCode() {
+        return airlineCode;
     }
 
-    public void setDepartureAirport(Airport departureAirport) {
-        this.departureAirport = departureAirport;
+    public void setAirlineCode(String airlineCode) {
+        this.airlineCode = airlineCode;
     }
 
-    public Airport getArrivalAirport() {
+    public String getArrivalAirport() {
         return arrivalAirport;
     }
 
-    public void setArrivalAirport(Airport arrivalAirport) {
+    public void setArrivalAirport(String arrivalAirport) {
         this.arrivalAirport = arrivalAirport;
-    }
-
-    public MarketingAirline getMarketingAirline() {
-        return marketingAirline;
-    }
-
-    public void setMarketingAirline(MarketingAirline marketingAirline) {
-        this.marketingAirline = marketingAirline;
-    }
-
-    public Timezone getArrivalTimeZone() {
-        return arrivalTimeZone;
-    }
-
-    public void setArrivalTimeZone(Timezone arrivalTimeZone) {
-        this.arrivalTimeZone = arrivalTimeZone;
-    }
-
-    public Timezone getDepartureTimeZone() {
-        return departureTimeZone;
-    }
-
-    public void setDepartureTimeZone(Timezone departureTimeZone) {
-        this.departureTimeZone = departureTimeZone;
-    }
-
-    public int getStopQuantity() {
-        return stopQuantity;
-    }
-
-    public void setStopQuantity(int stopQuantity) {
-        this.stopQuantity = stopQuantity;
-    }
-
-    public int getElapsedTime() {
-        return elapsedTime;
-    }
-
-    public void setElapsedTime(int elapsedTime) {
-        this.elapsedTime = elapsedTime;
-    }
-
-    public Equipment getEquipment() {
-        return equipment;
-    }
-
-    public void setEquipment(Equipment equipment) {
-        this.equipment = equipment;
-    }
-
-    public String getDepartureDateTime() {
-        return departureDateTime;
-    }
-
-    public void setDepartureDateTime(String departureDateTime) {
-        this.departureDateTime = departureDateTime;
     }
 
     public String getArrivalDateTime() {
@@ -98,11 +40,52 @@ public class FlightSegment {
         this.arrivalDateTime = arrivalDateTime;
     }
 
-    public OperatingAirline getOperatingAirline() {
-        return operatingAirline;
+    public String getArrivalTimeZone() {
+        return arrivalTimeZone;
     }
 
-    public void setOperatingAirline(OperatingAirline operatingAirline) {
-        this.operatingAirline = operatingAirline;
+    public void setArrivalTimeZone(String arrivalTimeZone) {
+        this.arrivalTimeZone = arrivalTimeZone;
     }
+
+    public String getDepartureAirport() {
+        return departureAirport;
+    }
+
+    public void setDepartureAirport(String departureAirport) {
+        this.departureAirport = departureAirport;
+    }
+
+    public String getDepartureDateTime() {
+        return departureDateTime;
+    }
+
+    public void setDepartureDateTime(String departureDateTime) {
+        this.departureDateTime = departureDateTime;
+    }
+
+    public String getDepartureTimeZone() {
+        return departureTimeZone;
+    }
+
+    public void setDepartureTimeZone(String departureTimeZone) {
+        this.departureTimeZone = departureTimeZone;
+    }
+
+    public Integer getFlightNumber() {
+        return flightNumber;
+    }
+
+    public void setFlightNumber(Integer flightNumber) {
+        this.flightNumber = flightNumber;
+    }
+
+    public Integer getStopQuantity() {
+        return stopQuantity;
+    }
+
+    public void setStopQuantity(Integer stopQuantity) {
+        this.stopQuantity = stopQuantity;
+    }
+
 }

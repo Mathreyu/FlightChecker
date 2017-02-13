@@ -7,9 +7,35 @@ import java.util.List;
  */
 
 public class OriginDestinationOption {
+
+    private Double amount;
+    private String currencyCode;
+    private Integer elapsedTime;
     private List<FlightSegment> flightSegments;
-    private int elapsedTime;
-    private TotalFare totalFare;
+
+    public Double getAmount() {
+        return amount;
+    }
+
+    public void setAmount(Double amount) {
+        this.amount = amount;
+    }
+
+    public String getCurrencyCode() {
+        return currencyCode;
+    }
+
+    public void setCurrencyCode(String currencyCode) {
+        this.currencyCode = currencyCode;
+    }
+
+    public Integer getElapsedTime() {
+        return elapsedTime;
+    }
+
+    public void setElapsedTime(Integer elapsedTime) {
+        this.elapsedTime = elapsedTime;
+    }
 
     public List<FlightSegment> getFlightSegments() {
         return flightSegments;
@@ -19,19 +45,4 @@ public class OriginDestinationOption {
         this.flightSegments = flightSegments;
     }
 
-    public int getElapsedTime() {
-        return elapsedTime;
-    }
-
-    public void setElapsedTime(int elapsedTime) {
-        this.elapsedTime = elapsedTime;
-    }
-
-    public TotalFare getTotalFare() {
-        return totalFare;
-    }
-
-    public void setTotalFare(TotalFare totalFare) {
-        this.totalFare = totalFare;
-    }
 }
