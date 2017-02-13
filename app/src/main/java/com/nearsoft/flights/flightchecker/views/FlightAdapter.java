@@ -56,7 +56,7 @@ public class FlightAdapter extends RecyclerView.Adapter<FlightAdapter.ViewHolder
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.arivalTime)
+        @BindView(R.id.arrivalTime)
         TextView arrivalTime;
         @BindView(R.id.arrivalAirport)
         TextView arrivalAirport;
@@ -83,7 +83,9 @@ public class FlightAdapter extends RecyclerView.Adapter<FlightAdapter.ViewHolder
             arrivalAirport.setText(flight.getArrivalAirport());
             departureTime.setText(flight.getDepartureDateTime());
             departureAirport.setText(flight.getDepartureAirport());
+            flightNumber.setText(String.valueOf(flight.getFlightNumber()));
             price.setText("200");
+
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

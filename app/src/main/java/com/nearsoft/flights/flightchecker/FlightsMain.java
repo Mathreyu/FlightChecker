@@ -2,14 +2,15 @@ package com.nearsoft.flights.flightchecker;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.widget.LinearLayout;
 
 import com.nearsoft.flights.flightchecker.api.FlightApi;
 import com.nearsoft.flights.flightchecker.models.APIResponse;
 import com.nearsoft.flights.flightchecker.models.FlightSegment;
-import com.nearsoft.flights.flightchecker.models.Itinerary;
 import com.nearsoft.flights.flightchecker.views.FlightAdapter;
 
 import java.util.List;
@@ -42,6 +43,8 @@ public class FlightsMain extends AppCompatActivity {
         adapter = new FlightAdapter();
         rvFlights.setLayoutManager(new LinearLayoutManager(this));
         rvFlights.setAdapter(adapter);
+        rvFlights.addItemDecoration(new DividerItemDecoration(rvFlights.getContext(),
+                LinearLayout.VERTICAL));
     }
 
     @Override
@@ -53,7 +56,7 @@ public class FlightsMain extends AppCompatActivity {
     public Retrofit provideRetrofit() {
         return new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl(FlightApi.ENDPOINT)
+                .baseUrl(FlightApi.BASE_URL)
                 .build();
     }
 
