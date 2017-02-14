@@ -37,11 +37,12 @@ public class FlightsMain extends AppCompatActivity {
     List<FlightSegment> flightSegments;
 
     private FlightAdapter adapter;
-    private Retrofit retrofit;
     private FlightApi flightApi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Retrofit retrofit;
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_flights_main);
         ButterKnife.bind(this);
@@ -75,7 +76,7 @@ public class FlightsMain extends AppCompatActivity {
         apiService.subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(flight -> {
-                    List<FlightSegment> responses = flight.getItinerary().getOriginDestinationOptions().get(1).getFlightSegments();
+                    List<FlightSegment> responses = flight.getItinerary().getOriginDestinationOptions().get(0).getFlightSegments();
                     adapter.addResults(responses);
                 }, Throwable::printStackTrace);
     }

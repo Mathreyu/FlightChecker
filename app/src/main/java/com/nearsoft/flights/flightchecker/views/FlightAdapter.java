@@ -58,12 +58,8 @@ public class FlightAdapter extends RecyclerView.Adapter<FlightAdapter.ViewHolder
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.arrivalTime)
-        TextView arrivalTime;
         @BindView(R.id.arrivalAirport)
         TextView arrivalAirport;
-        @BindView(R.id.departureTime)
-        TextView departureTime;
         @BindView(R.id.departureAirport)
         TextView departureAirport;
         //TODO: retrive price from DestinationOptions
@@ -83,20 +79,12 @@ public class FlightAdapter extends RecyclerView.Adapter<FlightAdapter.ViewHolder
 
         private void bind(FlightSegment flight) {
 
-            arrivalTime.setText(flight.getArrivalDateTime());
             arrivalAirport.setText(flight.getArrivalAirport());
-            departureTime.setText(flight.getDepartureDateTime());
             departureAirport.setText(flight.getDepartureAirport());
             flightNumber.setText(String.valueOf(flight.getFlightNumber()));
             price.setText("200");
-            Picasso.with(itemView.getContext()).load(R.drawable.plane).into(plane);
+            Picasso.with(itemView.getContext()).load("https://cdn0.iconfinder.com/data/icons/kameleon-free-pack-rounded/110/Paper-Plane-512.png").into(plane);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-                }
-            });
         }
     }
 }
