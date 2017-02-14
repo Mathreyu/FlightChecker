@@ -54,12 +54,12 @@ public class FlightsMain extends AppCompatActivity {
         rvFlights.setAdapter(adapter);
         rvFlights.addItemDecoration(new DividerItemDecoration(rvFlights.getContext(),
                 LinearLayout.VERTICAL));
+        getFlights(adapter);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        getFlights(adapter);
     }
 
     public Retrofit provideRetrofit() {
