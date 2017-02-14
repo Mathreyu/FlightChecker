@@ -3,6 +3,7 @@ package com.nearsoft.flights.flightchecker;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -50,10 +51,8 @@ public class FlightsMain extends AppCompatActivity {
         flightApi = retrofit.create(FlightApi.class);
 
         adapter = new FlightAdapter();
-        rvFlights.setLayoutManager(new LinearLayoutManager(this));
+        rvFlights.setLayoutManager(new GridLayoutManager(this, 1));
         rvFlights.setAdapter(adapter);
-        rvFlights.addItemDecoration(new DividerItemDecoration(rvFlights.getContext(),
-                LinearLayout.VERTICAL));
         getFlights(adapter);
     }
 

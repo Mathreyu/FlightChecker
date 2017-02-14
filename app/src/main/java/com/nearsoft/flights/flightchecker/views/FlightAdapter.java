@@ -83,7 +83,7 @@ public class FlightAdapter extends RecyclerView.Adapter<FlightAdapter.ViewHolder
             departureAirport.setText(flight.getDepartureAirport());
             flightNumber.setText(String.valueOf(flight.getFlightNumber()));
             price.setText("200");
-            Picasso.with(itemView.getContext()).load("https://cdn0.iconfinder.com/data/icons/kameleon-free-pack-rounded/110/Paper-Plane-512.png").into(plane);
+            Picasso.with(itemView.getContext()).load("http://www.2rms.com/stockphotos/photos/skyview-city-buildings.jpg").into(plane);
 
         }
     }
