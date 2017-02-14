@@ -14,6 +14,7 @@ import com.nearsoft.flights.flightchecker.api.FlightApi;
 import com.nearsoft.flights.flightchecker.models.APIResponse;
 import com.nearsoft.flights.flightchecker.models.FlightSegment;
 import com.nearsoft.flights.flightchecker.models.Itinerary;
+import com.nearsoft.flights.flightchecker.models.OriginDestinationOption;
 import com.nearsoft.flights.flightchecker.views.FlightAdapter;
 
 import java.util.List;
@@ -24,7 +25,11 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
+import rx.Observable;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 public class FlightsMain extends AppCompatActivity {
     @BindView(R.id.rvFlights)
@@ -58,26 +63,20 @@ public class FlightsMain extends AppCompatActivity {
 
     public Retrofit provideRetrofit() {
         return new Retrofit.Builder()
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .baseUrl(FlightApi.BASE_URL)
                 .build();
     }
 
     public void getFlights(final FlightAdapter adapter){
-        Call<APIResponse> apiService = flightApi.getIntinerary(1);
+        Observable<APIResponse> apiService = flightApi.getIntinerary(1);
 
-        apiService.enqueue(new Callback<APIResponse>() {
-            @Override
-            public void onResponse(Call<APIResponse> call, Response<APIResponse> response) {
-                flightSegments = response.body().getItinerary().getOriginDestinationOptions().get(0).getFlightSegments();
-                adapter.addResults(flightSegments);
-                call.cancel();
-            }
-
-            @Override
-            public void onFailure(Call<APIResponse> call, Throwable t) {
-                Log.d("Retrofit", t.getMessage());
-            }
-        });
+        apiService.subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(flight -> {
+                    List<FlightSegment> responses = flight.getItinerary().getOriginDestinationOptions().get(1).getFlightSegments();
+                    adapter.addResults(responses);
+                }, Throwable::printStackTrace);
     }
 }

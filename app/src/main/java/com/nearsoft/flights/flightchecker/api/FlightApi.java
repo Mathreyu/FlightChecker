@@ -8,6 +8,7 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
+import rx.Observable;
 
 public interface FlightApi {
 
@@ -18,6 +19,6 @@ public interface FlightApi {
     Call<List<APIResponse>> getItineraries();
 
     @GET("itinerary/{id}")
-    Call<APIResponse> getIntinerary(@Path("id") int id);
+    Observable<APIResponse> getIntinerary(@Path("id") int id);
 
 }
