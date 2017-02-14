@@ -5,10 +5,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.nearsoft.flights.flightchecker.R;
 import com.nearsoft.flights.flightchecker.models.FlightSegment;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,6 +71,8 @@ public class FlightAdapter extends RecyclerView.Adapter<FlightAdapter.ViewHolder
         TextView price;
         @BindView(R.id.flightNumber)
         TextView flightNumber;
+        @BindView(R.id.plane)
+        ImageView plane;
         Context context;
 
         public ViewHolder(View itemView) {
@@ -85,6 +89,7 @@ public class FlightAdapter extends RecyclerView.Adapter<FlightAdapter.ViewHolder
             departureAirport.setText(flight.getDepartureAirport());
             flightNumber.setText(String.valueOf(flight.getFlightNumber()));
             price.setText("200");
+            Picasso.with(itemView.getContext()).load(R.drawable.plane).into(plane);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

@@ -8,9 +8,12 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.LinearLayout;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.nearsoft.flights.flightchecker.api.FlightApi;
 import com.nearsoft.flights.flightchecker.models.APIResponse;
 import com.nearsoft.flights.flightchecker.models.FlightSegment;
+import com.nearsoft.flights.flightchecker.models.Itinerary;
 import com.nearsoft.flights.flightchecker.views.FlightAdapter;
 
 import java.util.List;
@@ -68,6 +71,7 @@ public class FlightsMain extends AppCompatActivity {
             public void onResponse(Call<APIResponse> call, Response<APIResponse> response) {
                 flightSegments = response.body().getItinerary().getOriginDestinationOptions().get(0).getFlightSegments();
                 adapter.addResults(flightSegments);
+                call.cancel();
             }
 
             @Override
