@@ -74,57 +74,48 @@
             <ImageView
                 android:layout_height="match_parent"
                 android:layout_width="wrap_content"
-                android:src="@drawable/ic_date_range_black_24dp"
-                android:adjustViewBounds="false"
-                android:cropToPadding="false" />
+                android:src="@drawable/ic_date_range_black_24dp" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:layout_marginStart="15dp"
                 android:layout_marginEnd="20dp"
-                android:text="Schedule:"
+                android:text="@string/departure_time"
                 android:textAppearance="@android:style/TextAppearance.Material.Small" />
-            <LinearLayout
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="false"
+                android:onClick="openCalendar"
+                android:textAppearance="@android:style/TextAppearance.Material.Small"
+                android:id="@+id/departureQueryTime"
+                android:hint="30-June-2017"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:orientation="horizontal">
+            <ImageView
+                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:src="@drawable/ic_date_range_black_24dp" />
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="15dp"
-                        android:layout_marginEnd="10dp"
-                        android:text="Departure:"
-                        android:textAppearance="@android:style/TextAppearance.Material.Small" />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="@android:style/TextAppearance.Material.Small"
-                        android:text="30-Jun-2017"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="15dp"
-                        android:layout_marginEnd="10dp"
-                        android:text="Arrival:"
-                        android:textAppearance="@android:style/TextAppearance.Material.Small" />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="@android:style/TextAppearance.Material.Small"
-                        android:text="30-Jun-2017"/>
-                </LinearLayout>
-            </LinearLayout>
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="20dp"
+                android:text="@string/arrival_time"
+                android:textAppearance="@android:style/TextAppearance.Material.Small" />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="false"
+                android:onClick="openCalendar"
+                android:textAppearance="@android:style/TextAppearance.Material.Small"
+                android:id="@+id/arrivalQueryTime"
+                android:hint="30-June-2017"/>
         </LinearLayout>
 
         <LinearLayout
