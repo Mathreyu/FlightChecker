@@ -19,6 +19,6 @@ public interface FlightApi {
     Call<List<APIResponse>> getItineraries();
 
     @GET("itinerary/{id}")
-    Observable<APIResponse> getIntinerary(@Path("id") int id);
+    Observable<APIResponse> getItinerary(@Path("id") int id);
 
 }

@@ -2,29 +2,18 @@ package com.nearsoft.flights.flightchecker;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.widget.LinearLayout;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.nearsoft.flights.flightchecker.api.FlightApi;
 import com.nearsoft.flights.flightchecker.models.APIResponse;
 import com.nearsoft.flights.flightchecker.models.FlightSegment;
-import com.nearsoft.flights.flightchecker.models.Itinerary;
-import com.nearsoft.flights.flightchecker.models.OriginDestinationOption;
 import com.nearsoft.flights.flightchecker.views.FlightAdapter;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -70,7 +59,7 @@ public class FlightsMain extends AppCompatActivity {
     }
 
     public void getFlights(final FlightAdapter adapter){
-        Observable<APIResponse> apiService = flightApi.getIntinerary(1);
+        Observable<APIResponse> apiService = flightApi.getItinerary(1);
 
         apiService.subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
