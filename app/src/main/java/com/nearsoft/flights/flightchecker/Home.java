@@ -100,7 +100,7 @@ public class Home extends AppCompatActivity
         return true;
     }
 
-    public void queryFlights(View view) {
+    protected void queryFlights(View view) {
         startActivity(new Intent(this, QueryFlights.class));
     }
 
