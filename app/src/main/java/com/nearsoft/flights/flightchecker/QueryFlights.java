@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.TextView;
@@ -93,11 +94,11 @@ public class QueryFlights extends AppCompatActivity {
 
         final int toastLenght = Toast.LENGTH_SHORT;
 
-        if ("".equals(arrivalAirportInput.getText())) {
-            Toast.makeText(this, "Select an arrival airport", toastLenght).show();
-            return;
-        } else if ("".equals(departureAirportInput.getText())) {
+        if ("".equals(departureAirportInput.getText().toString())) {
             Toast.makeText(this, "Select a departure airport", toastLenght).show();
+            return;
+        } else if ("".equals(arrivalAirportInput.getText().toString())) {
+            Toast.makeText(this, "Select an arrival airport", toastLenght).show();
             return;
         }
 
@@ -111,7 +112,7 @@ public class QueryFlights extends AppCompatActivity {
         apiService.subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(flight -> {
-                    List<FlightSegment> responses = flight.getItinerary().getOriginDestinationOptions().get(1).getFlightSegments();
+                    List<FlightSegment> responses = flight.getItinerary().getOriginDestinationOptions().get(0).getFlightSegments();
                     //adapter.addResults(responses);
                 }, Throwable::printStackTrace);
 
