@@ -101,7 +101,7 @@ public class Home extends AppCompatActivity
     }
 
     protected void queryFlights(View view) {
-        startActivity(new Intent(this, QueryFlights.class));
+        startActivity(new Intent(this, FlightsMain.class));
     }
 
 }

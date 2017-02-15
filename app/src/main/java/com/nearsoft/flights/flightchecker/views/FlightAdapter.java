@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.nearsoft.flights.flightchecker.R;
 import com.nearsoft.flights.flightchecker.models.FlightSegment;
+import com.nearsoft.flights.flightchecker.models.OriginDestinationOption;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -21,7 +22,7 @@ import butterknife.ButterKnife;
 
 public class FlightAdapter extends RecyclerView.Adapter<FlightAdapter.ViewHolder> {
 
-    private List<FlightSegment> flightList;
+    private List<OriginDestinationOption> flightList;
 
     public FlightAdapter() {
         flightList = new ArrayList<>();
@@ -29,7 +30,7 @@ public class FlightAdapter extends RecyclerView.Adapter<FlightAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        FlightSegment flight = flightList.get(position);
+        OriginDestinationOption flight = flightList.get(position);
         holder.bind(flight);
     }
 
@@ -52,7 +53,7 @@ public class FlightAdapter extends RecyclerView.Adapter<FlightAdapter.ViewHolder
         return flightList.size();
     }
 
-    public void addResults(List<FlightSegment> flights) {
+    public void addResults(List<OriginDestinationOption> flights) {
         flightList.addAll(flights);
         notifyDataSetChanged();
     }
@@ -62,13 +63,10 @@ public class FlightAdapter extends RecyclerView.Adapter<FlightAdapter.ViewHolder
         TextView arrivalAirport;
         @BindView(R.id.departureAirport)
         TextView departureAirport;
-        //TODO: retrive price from DestinationOptions
         @BindView(R.id.price)
         TextView price;
-        @BindView(R.id.flightNumber)
-        TextView flightNumber;
-        @BindView(R.id.plane)
-        ImageView plane;
+        @BindView(R.id.flightHeader)
+        ImageView flightHeader;
         Context context;
 
         public ViewHolder(View itemView) {
@@ -77,14 +75,12 @@ public class FlightAdapter extends RecyclerView.Adapter<FlightAdapter.ViewHolder
             ButterKnife.bind(this, itemView);
         }
 
-        private void bind(FlightSegment flight) {
+        private void bind(OriginDestinationOption flight) {
 
             arrivalAirport.setText(flight.getArrivalAirport());
             departureAirport.setText(flight.getDepartureAirport());
-            flightNumber.setText(String.valueOf(flight.getFlightNumber()));
-            price.setText("200");
-            Picasso.with(itemView.getContext()).load("http://www.2rms.com/stockphotos/photos/skyview-city-buildings.jpg").into(plane);
-
+            price.setText(flight.getAmount() + " " + flight.getCurrencyCode());
+            Picasso.with(itemView.getContext()).load("http://www.2rms.com/stockphotos/photos/skyview-city-buildings.jpg").into(flightHeader);
         }
     }
 }

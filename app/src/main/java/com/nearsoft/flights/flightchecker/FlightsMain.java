@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import com.nearsoft.flights.flightchecker.api.FlightApi;
 import com.nearsoft.flights.flightchecker.models.APIResponse;
 import com.nearsoft.flights.flightchecker.models.FlightSegment;
+import com.nearsoft.flights.flightchecker.models.OriginDestinationOption;
 import com.nearsoft.flights.flightchecker.views.FlightAdapter;
 
 import java.util.List;
@@ -22,9 +23,9 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
 public class FlightsMain extends AppCompatActivity {
+
     @BindView(R.id.rvFlights)
     RecyclerView rvFlights;
-    List<FlightSegment> flightSegments;
 
     private FlightAdapter adapter;
     private FlightApi flightApi;
@@ -64,7 +65,7 @@ public class FlightsMain extends AppCompatActivity {
         apiService.subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(flight -> {
-                    List<FlightSegment> responses = flight.getItinerary().getOriginDestinationOptions().get(0).getFlightSegments();
+                    List<OriginDestinationOption> responses = flight.getItinerary().getOriginDestinationOptions();
                     adapter.addResults(responses);
                 }, Throwable::printStackTrace);
     }
