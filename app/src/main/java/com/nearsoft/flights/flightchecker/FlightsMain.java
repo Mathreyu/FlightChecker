@@ -9,40 +9,42 @@ import android.support.v7.widget.RecyclerView;
 import com.nearsoft.flights.flightchecker.api.FlightApi;
 import com.nearsoft.flights.flightchecker.models.APIResponse;
 import com.nearsoft.flights.flightchecker.models.OriginDestinationOption;
+import com.nearsoft.flights.flightchecker.api.dagger.DaggerDIComponents;
+import com.nearsoft.flights.flightchecker.api.dagger.RetrofitModule;
+import com.nearsoft.flights.flightchecker.models.FlightSegment;
+import com.nearsoft.flights.flightchecker.presenter.FlightsMainPresenter;
 import com.nearsoft.flights.flightchecker.views.FlightAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
-import retrofit2.converter.gson.GsonConverterFactory;
-import rx.Observable;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 public class FlightsMain extends AppCompatActivity {
 
     @BindView(R.id.rvFlights)
     RecyclerView rvFlights;
 
+    @Inject
+    FlightsMainPresenter flightsMainPresenter;
+
+    List<FlightSegment> flightSegments;
+
     private FlightAdapter adapter;
-    private FlightApi flightApi;
+
 
     static final String FLIGHTS = "com.nearsoft.flights.flightchecker.flightsMain.flights";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        Retrofit retrofit;
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_flights_main);
         ButterKnife.bind(this);
-        retrofit = provideRetrofit();
-        flightApi = retrofit.create(FlightApi.class);
+        DaggerDIComponents.builder().retrofitModule(new RetrofitModule(FlightApi.BASE_URL)).build().inject(this);
 
         adapter = new FlightAdapter();
         rvFlights.setLayoutManager(new GridLayoutManager(this, 1));
@@ -52,6 +54,7 @@ public class FlightsMain extends AppCompatActivity {
         ArrayList<OriginDestinationOption> flights = intent.getParcelableArrayListExtra(FLIGHTS);
 
         adapter.addResults(flights);
+        flightsMainPresenter.getFlights(adapter);
     }
 
     @Override
@@ -59,7 +62,7 @@ public class FlightsMain extends AppCompatActivity {
         super.onResume();
     }
 
-    public Retrofit provideRetrofit() {
+    /*public Retrofit provideRetrofit() {
         return new Retrofit.Builder()
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
@@ -76,5 +79,6 @@ public class FlightsMain extends AppCompatActivity {
                     List<OriginDestinationOption> responses = flight.getItinerary().getOriginDestinationOptions();
                     adapter.addResults(responses);
                 }, Throwable::printStackTrace);
-    }
+    }*/
+
 }
