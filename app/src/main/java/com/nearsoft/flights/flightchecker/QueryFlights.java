@@ -2,9 +2,8 @@ package com.nearsoft.flights.flightchecker;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.TextView;
@@ -12,11 +11,11 @@ import android.widget.Toast;
 
 import com.nearsoft.flights.flightchecker.api.FlightApi;
 import com.nearsoft.flights.flightchecker.models.APIResponse;
-import com.nearsoft.flights.flightchecker.models.FlightSegment;
+import com.nearsoft.flights.flightchecker.models.OriginDestinationOption;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 import java.util.Locale;
 
 import butterknife.BindView;
@@ -112,12 +111,12 @@ public class QueryFlights extends AppCompatActivity {
         apiService.subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(flight -> {
-                    List<FlightSegment> responses = flight.getItinerary().getOriginDestinationOptions().get(0).getFlightSegments();
-                    //adapter.addResults(responses);
+                    ArrayList<OriginDestinationOption> flights = new ArrayList<>(flight.getItinerary().getOriginDestinationOptions());
+                    Intent intent = new Intent(this, FlightsMain.class);
+                    intent.putParcelableArrayListExtra(FlightsMain.FLIGHTS, flights);
+                    startActivity(intent);
                 }, Throwable::printStackTrace);
 
-        Intent intent = new Intent(this, FlightsMain.class);
-        startActivity(intent);
     }
 
 }

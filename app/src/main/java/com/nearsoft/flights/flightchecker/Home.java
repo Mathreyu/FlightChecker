@@ -13,9 +13,19 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class Home extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    //@BindView(R.id.buttonAllFlights)
+    //Button buttonAllFlights;
+
+    @BindView(R.id.buttonQueryFlights)
+    Button buttonQueryFlights;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +51,10 @@ public class Home extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        ButterKnife.bind(this);
+
+        buttonQueryFlights.setOnClickListener(this::queryFlights);
     }
 
     @Override
@@ -101,7 +115,7 @@ public class Home extends AppCompatActivity
     }
 
     protected void queryFlights(View view) {
-        startActivity(new Intent(this, FlightsMain.class));
+        startActivity(new Intent(this, QueryFlights.class));
     }
 
 }

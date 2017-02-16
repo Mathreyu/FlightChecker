@@ -1,16 +1,17 @@
 package com.nearsoft.flights.flightchecker;
 
-import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.nearsoft.flights.flightchecker.api.FlightApi;
 import com.nearsoft.flights.flightchecker.models.APIResponse;
-import com.nearsoft.flights.flightchecker.models.FlightSegment;
 import com.nearsoft.flights.flightchecker.models.OriginDestinationOption;
 import com.nearsoft.flights.flightchecker.views.FlightAdapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -30,8 +31,11 @@ public class FlightsMain extends AppCompatActivity {
     private FlightAdapter adapter;
     private FlightApi flightApi;
 
+    static final String FLIGHTS = "com.nearsoft.flights.flightchecker.flightsMain.flights";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         Retrofit retrofit;
 
         super.onCreate(savedInstanceState);
@@ -43,7 +47,11 @@ public class FlightsMain extends AppCompatActivity {
         adapter = new FlightAdapter();
         rvFlights.setLayoutManager(new GridLayoutManager(this, 1));
         rvFlights.setAdapter(adapter);
-        getFlights(adapter);
+
+        Intent intent = getIntent();
+        ArrayList<OriginDestinationOption> flights = intent.getParcelableArrayListExtra(FLIGHTS);
+
+        adapter.addResults(flights);
     }
 
     @Override
