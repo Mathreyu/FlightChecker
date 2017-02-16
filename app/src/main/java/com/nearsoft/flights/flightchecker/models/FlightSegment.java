@@ -1,10 +1,9 @@
 package com.nearsoft.flights.flightchecker.models;
 
-/**
- * Created by Ramon on 2/8/2017.
- */
+import android.os.Parcel;
+import android.os.Parcelable;
 
-public class FlightSegment {
+public class FlightSegment implements Parcelable{
 
     private String airlineCode;
     private String arrivalAirport;
@@ -15,6 +14,30 @@ public class FlightSegment {
     private String departureTimeZone;
     private Integer flightNumber;
     private Integer stopQuantity;
+
+    protected FlightSegment(Parcel in) {
+        airlineCode = in.readString();
+        arrivalAirport = in.readString();
+        arrivalDateTime = in.readString();
+        arrivalTimeZone = in.readString();
+        departureAirport = in.readString();
+        departureDateTime = in.readString();
+        departureTimeZone = in.readString();
+        flightNumber = in.readInt();
+        stopQuantity = in.readInt();
+    }
+
+    public static final Creator<FlightSegment> CREATOR = new Creator<FlightSegment>() {
+        @Override
+        public FlightSegment createFromParcel(Parcel in) {
+            return new FlightSegment(in);
+        }
+
+        @Override
+        public FlightSegment[] newArray(int size) {
+            return new FlightSegment[size];
+        }
+    };
 
     public String getAirlineCode() {
         return airlineCode;
@@ -88,4 +111,21 @@ public class FlightSegment {
         this.stopQuantity = stopQuantity;
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(airlineCode);
+        dest.writeString(arrivalAirport);
+        dest.writeString(arrivalDateTime);
+        dest.writeString(arrivalTimeZone);
+        dest.writeString(departureAirport);
+        dest.writeString(departureDateTime);
+        dest.writeString(departureTimeZone);
+        dest.writeInt(flightNumber);
+        dest.writeInt(stopQuantity);
+    }
 }
