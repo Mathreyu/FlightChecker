@@ -10,17 +10,48 @@ public class OriginDestinationOption implements Parcelable{
 
     private String arrivalAirport;
     private String departureAirport;
+    private String arrivalDateTime;
+    private String departureDateTime;
     private Double amount;
     private String currencyCode;
     private Integer elapsedTime;
+
+    public String getArrivalDateTime() {
+        return arrivalDateTime;
+    }
+
+    public void setArrivalDateTime(String arrivalDateTime) {
+        this.arrivalDateTime = arrivalDateTime;
+    }
+
+    public String getDepartureDateTime() {
+        return departureDateTime;
+    }
+
+    public void setDepartureDateTime(String departureDateTime) {
+        this.departureDateTime = departureDateTime;
+    }
+
+    public String getArrivalCityImage() {
+        return arrivalCityImage;
+    }
+
+    public void setArrivalCityImage(String arrivalCityImage) {
+        this.arrivalCityImage = arrivalCityImage;
+    }
+
+    private String arrivalCityImage;
     private List<FlightSegment> flightSegments;
 
     protected OriginDestinationOption(Parcel in) {
         arrivalAirport = in.readString();
         departureAirport = in.readString();
+        arrivalDateTime = in.readString();
+        departureDateTime = in.readString();
         amount = in.readDouble();
         currencyCode = in.readString();
         elapsedTime = in.readInt();
+        arrivalCityImage = in.readString();
         flightSegments = new ArrayList<>();
         in.readTypedList(flightSegments, FlightSegment.CREATOR);
     }
@@ -94,9 +125,12 @@ public class OriginDestinationOption implements Parcelable{
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(arrivalAirport);
         dest.writeString(departureAirport);
+        dest.writeString(arrivalDateTime);
+        dest.writeString(departureDateTime);
         dest.writeDouble(amount);
         dest.writeString(currencyCode);
         dest.writeInt(elapsedTime);
+        dest.writeString(arrivalCityImage);
         dest.writeTypedList(flightSegments);
     }
 
