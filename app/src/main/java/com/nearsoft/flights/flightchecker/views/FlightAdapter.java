@@ -13,8 +13,10 @@ import com.nearsoft.flights.flightchecker.models.FlightSegment;
 import com.nearsoft.flights.flightchecker.models.OriginDestinationOption;
 import com.squareup.picasso.Picasso;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -63,6 +65,10 @@ public class FlightAdapter extends RecyclerView.Adapter<FlightAdapter.ViewHolder
         TextView arrivalAirport;
         @BindView(R.id.departureAirport)
         TextView departureAirport;
+        @BindView(R.id.arrivalTime)
+        TextView arrivalTime;
+        @BindView(R.id.departureTime)
+        TextView departureTime;
         @BindView(R.id.price)
         TextView price;
         @BindView(R.id.flightHeader)
@@ -79,8 +85,11 @@ public class FlightAdapter extends RecyclerView.Adapter<FlightAdapter.ViewHolder
 
             arrivalAirport.setText(flight.getArrivalAirport());
             departureAirport.setText(flight.getDepartureAirport());
+            arrivalTime.setText(flight.getArrivalDateTime());
+            departureTime.setText(flight.getDepartureDateTime());
             price.setText(flight.getAmount() + " " + flight.getCurrencyCode());
-            Picasso.with(itemView.getContext()).load("http://www.2rms.com/stockphotos/photos/skyview-city-buildings.jpg").into(flightHeader);
+
+            Picasso.with(itemView.getContext()).load(flight.getArrivalCityImage()).into(flightHeader);
         }
     }
 }
