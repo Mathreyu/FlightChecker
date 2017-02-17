@@ -1,6 +1,4 @@
-package com.nearsoft.flights.flightchecker.api.dagger;
-
-import com.nearsoft.flights.flightchecker.api.FlightApi;
+package com.nearsoft.flights.flightchecker.api.dagger.modules;
 
 import javax.inject.Singleton;
 
@@ -13,10 +11,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
 @Module
 public class RetrofitModule {
 
-    private String mEndpoint;
+    private String baseUrl;
 
-    public RetrofitModule(String endpoint) {
-        mEndpoint = endpoint;
+    public RetrofitModule(String baseUrl) {
+        this.baseUrl = baseUrl;
     }
 
     @Provides
@@ -26,14 +24,8 @@ public class RetrofitModule {
         return new Retrofit.Builder()
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl(mEndpoint)
+                .baseUrl(baseUrl)
                 .build();
-    }
-
-    @Provides
-    @Singleton
-    public FlightApi provideAPI(Retrofit retrofit) {
-        return retrofit.create(FlightApi.class);
     }
 
 }

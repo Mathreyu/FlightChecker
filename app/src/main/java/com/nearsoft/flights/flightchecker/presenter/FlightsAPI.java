@@ -1,6 +1,7 @@
 package com.nearsoft.flights.flightchecker.presenter;
 
-import com.nearsoft.flights.flightchecker.api.FlightApi;
+
+import com.nearsoft.flights.flightchecker.api.FlightsService;
 import com.nearsoft.flights.flightchecker.models.APIResponse;
 import com.nearsoft.flights.flightchecker.models.FlightSegment;
 import com.nearsoft.flights.flightchecker.views.FlightAdapter;
@@ -11,18 +12,26 @@ import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
-/**
- * Created by Ramon on 2/16/2017.
- */
+public class FlightsAPI {
 
-public class QueryFlightsPresenter {
-    private FlightApi service;
+    private FlightsService service;
 
-    public QueryFlightsPresenter(FlightApi api){
-        service = api;
+    public FlightsAPI(FlightsService service) {
+        this.service = service;
     }
 
-    public void searchRetrofit( String departureAirport, String arrivalAirport){
+    public void getAllFlights(final FlightAdapter adapter) {
+        Observable<APIResponse> apiService = service.getItinerary(1);
+
+        apiService.subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(flight -> {
+                    List<FlightSegment> responses = flight.getItinerary().getOriginDestinationOptions().get(0).getFlightSegments();
+                    //adapter.addResults(responses);
+                }, Throwable::printStackTrace);
+    }
+
+    public void searchFlightsByAirports(String departureAirport, String arrivalAirport){
         Observable<APIResponse> apiService = service.searchFlights(
                 departureAirport, arrivalAirport);
 

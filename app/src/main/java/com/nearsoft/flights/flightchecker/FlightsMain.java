@@ -6,17 +6,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-import com.nearsoft.flights.flightchecker.api.FlightApi;
-import com.nearsoft.flights.flightchecker.models.APIResponse;
 import com.nearsoft.flights.flightchecker.models.OriginDestinationOption;
-import com.nearsoft.flights.flightchecker.api.dagger.DaggerDIComponents;
-import com.nearsoft.flights.flightchecker.api.dagger.RetrofitModule;
-import com.nearsoft.flights.flightchecker.models.FlightSegment;
-import com.nearsoft.flights.flightchecker.presenter.FlightsMainPresenter;
+import com.nearsoft.flights.flightchecker.presenter.FlightsAPI;
 import com.nearsoft.flights.flightchecker.views.FlightAdapter;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -29,9 +23,7 @@ public class FlightsMain extends AppCompatActivity {
     RecyclerView rvFlights;
 
     @Inject
-    FlightsMainPresenter flightsMainPresenter;
-
-    List<FlightSegment> flightSegments;
+    FlightsAPI flightsAPI;
 
     private FlightAdapter adapter;
 
@@ -44,7 +36,6 @@ public class FlightsMain extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_flights_main);
         ButterKnife.bind(this);
-        DaggerDIComponents.builder().retrofitModule(new RetrofitModule(FlightApi.BASE_URL)).build().inject(this);
 
         adapter = new FlightAdapter();
         rvFlights.setLayoutManager(new GridLayoutManager(this, 1));
@@ -54,7 +45,7 @@ public class FlightsMain extends AppCompatActivity {
         ArrayList<OriginDestinationOption> flights = intent.getParcelableArrayListExtra(FLIGHTS);
 
         adapter.addResults(flights);
-        flightsMainPresenter.getFlights(adapter);
+        flightsAPI.getAllFlights(adapter);
     }
 
     @Override
@@ -66,7 +57,7 @@ public class FlightsMain extends AppCompatActivity {
         return new Retrofit.Builder()
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl(FlightApi.BASE_URL)
+                .baseUrl(FlightsService.BASE_URL)
                 .build();
     }
 

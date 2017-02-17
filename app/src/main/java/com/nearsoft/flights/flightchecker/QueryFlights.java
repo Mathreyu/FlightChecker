@@ -1,7 +1,6 @@
 package com.nearsoft.flights.flightchecker;
 
 import android.app.DatePickerDialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -10,14 +9,9 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.nearsoft.flights.flightchecker.api.FlightApi;
-
-import com.nearsoft.flights.flightchecker.api.dagger.DaggerDIComponents;
-import com.nearsoft.flights.flightchecker.api.dagger.RetrofitModule;
-import com.nearsoft.flights.flightchecker.presenter.QueryFlightsPresenter;
+import com.nearsoft.flights.flightchecker.presenter.FlightsAPI;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 
@@ -44,7 +38,7 @@ public class QueryFlights extends AppCompatActivity {
     Button searchButton;
 
     @Inject
-    QueryFlightsPresenter queryFlightsPresenter;
+    FlightsAPI flightsAPI;
 
     private Calendar calendar;
     private final SimpleDateFormat simpleDateformat = new SimpleDateFormat("dd - MMM - yyyy", Locale.US);
@@ -55,7 +49,6 @@ public class QueryFlights extends AppCompatActivity {
         setContentView(R.layout.activity_query_flights);
 
         ButterKnife.bind(QueryFlights.this);
-        DaggerDIComponents.builder().retrofitModule(new RetrofitModule(FlightApi.BASE_URL)).build().inject(this);
 
         calendar = Calendar.getInstance();
 
@@ -108,7 +101,7 @@ public class QueryFlights extends AppCompatActivity {
         }
 
         /*final Retrofit retrofit = provideRetrofit();
-        final FlightApi flightApi = retrofit.create(FlightApi.class);
+        final FlightsService flightApi = retrofit.create(FlightsService.class);
 
         Observable<APIResponse> apiService = flightApi.searchFlights(
                 departureAirportInput.getText().toString(),
@@ -122,7 +115,7 @@ public class QueryFlights extends AppCompatActivity {
                     intent.putParcelableArrayListExtra(FlightsMain.FLIGHTS, flights);
                     startActivity(intent);
                 }, Throwable::printStackTrace);*/
-        queryFlightsPresenter.searchRetrofit(departureAirport, arrivalAirport);
+        flightsAPI.searchFlightsByAirports(departureAirport, arrivalAirport);
 
     }
 
