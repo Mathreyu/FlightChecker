@@ -1,6 +1,7 @@
 package com.nearsoft.flights.flightchecker;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -9,9 +10,15 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.nearsoft.flights.flightchecker.api.FlightsService;
+import com.nearsoft.flights.flightchecker.api.dagger.components.flights.DaggerFlightsAPIComponents;
+import com.nearsoft.flights.flightchecker.api.dagger.modules.RetrofitModule;
+import com.nearsoft.flights.flightchecker.models.APIResponse;
+import com.nearsoft.flights.flightchecker.models.OriginDestinationOption;
 import com.nearsoft.flights.flightchecker.presenter.FlightsAPI;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 
@@ -19,6 +26,9 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import rx.Observable;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 public class QueryFlights extends AppCompatActivity {
 
@@ -49,6 +59,12 @@ public class QueryFlights extends AppCompatActivity {
         setContentView(R.layout.activity_query_flights);
 
         ButterKnife.bind(QueryFlights.this);
+
+        Home.flightsAPIComponents.inject(this);
+
+        DaggerFlightsAPIComponents.builder()
+                .retrofitModule(new RetrofitModule(FlightsService.BASE_URL))
+                .build().inject(this);
 
         calendar = Calendar.getInstance();
 
@@ -100,23 +116,16 @@ public class QueryFlights extends AppCompatActivity {
             return;
         }
 
-        /*final Retrofit retrofit = provideRetrofit();
-        final FlightsService flightApi = retrofit.create(FlightsService.class);
+        Observable<APIResponse> flightsByAirports = flightsAPI.searchFlightsByAirports(departureAirport, arrivalAirport);
 
-        Observable<APIResponse> apiService = flightApi.searchFlights(
-                departureAirportInput.getText().toString(),
-                arrivalAirportInput.getText().toString());
-
-        apiService.subscribeOn(Schedulers.newThread())
+        flightsByAirports.subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(flight -> {
                     ArrayList<OriginDestinationOption> flights = new ArrayList<>(flight.getItinerary().getOriginDestinationOptions());
                     Intent intent = new Intent(this, FlightsMain.class);
                     intent.putParcelableArrayListExtra(FlightsMain.FLIGHTS, flights);
                     startActivity(intent);
-                }, Throwable::printStackTrace);*/
-        flightsAPI.searchFlightsByAirports(departureAirport, arrivalAirport);
-
+                }, Throwable::printStackTrace);
     }
 
 }

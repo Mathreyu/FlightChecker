@@ -1,6 +1,7 @@
 package com.nearsoft.flights.flightchecker.api.dagger.components.flights;
 
 import com.nearsoft.flights.flightchecker.FlightsMain;
+import com.nearsoft.flights.flightchecker.Home;
 import com.nearsoft.flights.flightchecker.QueryFlights;
 import com.nearsoft.flights.flightchecker.api.dagger.modules.flights.FlightsAPIModule;
 import com.nearsoft.flights.flightchecker.api.dagger.modules.flights.FlightsRetrofitModule;
@@ -13,8 +14,8 @@ import dagger.Component;
 @Component (modules = {FlightsRetrofitModule.class, FlightsAPIModule.class})
 public interface FlightsAPIComponents {
 
-    void inject(QueryFlights queryFlights);
+    void inject(Home home);
 
-    void inject(FlightsMain flightsMain);
+    void inject(QueryFlights queryFlights);
 
 }
