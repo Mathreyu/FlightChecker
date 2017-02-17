@@ -60,7 +60,7 @@ public class QueryFlights extends AppCompatActivity {
 
         ButterKnife.bind(QueryFlights.this);
 
-        Home.flightsAPIComponents.inject(this);
+        Home.getFlightsAPIComponents().inject(this);
 
         DaggerFlightsAPIComponents.builder()
                 .retrofitModule(new RetrofitModule(FlightsService.BASE_URL))

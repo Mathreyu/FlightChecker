@@ -37,7 +37,7 @@ import rx.schedulers.Schedulers;
 public class Home extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    static FlightsAPIComponents flightsAPIComponents;
+    private static FlightsAPIComponents flightsAPIComponents;
 
     @BindView(R.id.buttonAllFlights)
     Button buttonAllFlights;
@@ -47,6 +47,10 @@ public class Home extends AppCompatActivity
 
     @Inject
     FlightsAPI flightsAPI;
+
+    public static FlightsAPIComponents getFlightsAPIComponents() {
+        return flightsAPIComponents;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
