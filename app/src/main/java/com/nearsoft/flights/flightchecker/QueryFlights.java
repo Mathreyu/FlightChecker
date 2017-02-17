@@ -10,12 +10,15 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.nearsoft.flights.flightchecker.api.FlightApi;
-import com.nearsoft.flights.flightchecker.api.dagger.DaggerDIComponents;
-import com.nearsoft.flights.flightchecker.api.dagger.RetrofitModule;
-import com.nearsoft.flights.flightchecker.presenter.QueryFlightsPresenter;
+import com.nearsoft.flights.flightchecker.api.FlightsService;
+import com.nearsoft.flights.flightchecker.api.dagger.components.flights.DaggerFlightsAPIComponents;
+import com.nearsoft.flights.flightchecker.api.dagger.modules.RetrofitModule;
+import com.nearsoft.flights.flightchecker.models.APIResponse;
+import com.nearsoft.flights.flightchecker.models.OriginDestinationOption;
+import com.nearsoft.flights.flightchecker.presenter.FlightsAPI;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 
@@ -23,6 +26,9 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import rx.Observable;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 public class QueryFlights extends AppCompatActivity {
 
@@ -42,7 +48,7 @@ public class QueryFlights extends AppCompatActivity {
     Button searchButton;
 
     @Inject
-    QueryFlightsPresenter queryFlightsPresenter;
+    FlightsAPI flightsAPI;
 
     private Calendar calendar;
     private final SimpleDateFormat simpleDateformat = new SimpleDateFormat("dd - MMM - yyyy", Locale.US);
@@ -53,7 +59,12 @@ public class QueryFlights extends AppCompatActivity {
         setContentView(R.layout.activity_query_flights);
 
         ButterKnife.bind(QueryFlights.this);
-        DaggerDIComponents.builder().retrofitModule(new RetrofitModule(FlightApi.BASE_URL)).build().inject(this);
+
+        Home.getFlightsAPIComponents().inject(this);
+
+        DaggerFlightsAPIComponents.builder()
+                .retrofitModule(new RetrofitModule(FlightsService.BASE_URL))
+                .build().inject(this);
 
         calendar = Calendar.getInstance();
 
@@ -104,10 +115,17 @@ public class QueryFlights extends AppCompatActivity {
             Toast.makeText(this, "Select an arrival airport", toastLength).show();
             return;
         }
-        queryFlightsPresenter.searchRetrofit(departureAirport, arrivalAirport);
 
-        Intent intent = new Intent(this, FlightsMain.class);
-        startActivity(intent);
+        Observable<APIResponse> flightsByAirports = flightsAPI.searchFlightsByAirports(departureAirport, arrivalAirport);
+
+        flightsByAirports.subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(flight -> {
+                    ArrayList<OriginDestinationOption> flights = new ArrayList<>(flight.getItinerary().getOriginDestinationOptions());
+                    Intent intent = new Intent(this, FlightsMain.class);
+                    intent.putParcelableArrayListExtra(FlightsMain.FLIGHTS, flights);
+                    startActivity(intent);
+                }, Throwable::printStackTrace);
     }
 
 }

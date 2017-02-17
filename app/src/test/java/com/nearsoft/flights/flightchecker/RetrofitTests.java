@@ -1,6 +1,6 @@
 package com.nearsoft.flights.flightchecker;
 
-import com.nearsoft.flights.flightchecker.api.FlightApi;
+import com.nearsoft.flights.flightchecker.api.FlightsService;
 import com.nearsoft.flights.flightchecker.models.APIResponse;
 import com.nearsoft.flights.flightchecker.models.FlightSegment;
 
@@ -11,16 +11,11 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
-import org.robolectric.Robolectric;
 import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.annotation.Config;
-import org.robolectric.util.ActivityController;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import retrofit2.Retrofit;
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -35,7 +30,7 @@ public class RetrofitTests {
     private List<FlightSegment> mockList;
 
     @Mock
-    private FlightApi mockApi;
+    private FlightsService mockApi;
 
     @Captor
     private ArgumentCaptor<List<FlightSegment>> callbackArgumentCaptor;

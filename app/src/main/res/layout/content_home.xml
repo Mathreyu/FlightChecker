@@ -14,12 +14,17 @@
     tools:showIn="@layout/app_bar_home">
 
     <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="View all flights"
+        android:id="@+id/buttonAllFlights"/>
+
+    <Button
         android:text="@string/button_query_flights"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="18dp"
+        android:layout_below="@+id/buttonAllFlights"
         android:onClick="queryFlights"
-        android:id="@+id/queryFlights" />
+        android:id="@+id/buttonQueryFlights" />
+
 </RelativeLayout>
