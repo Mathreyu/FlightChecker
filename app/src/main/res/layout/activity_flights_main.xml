@@ -8,7 +8,8 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.nearsoft.flights.flightchecker.FlightsMain">
+    tools:context="com.nearsoft.flights.flightchecker.FlightsMain"
+    android:background="#E57373">
 
     <include layout="@layout/flight_list"/>
 
