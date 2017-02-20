@@ -11,20 +11,15 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.nearsoft.flights.flightchecker.Home"
-    tools:showIn="@layout/app_bar_home">
+    tools:showIn="@layout/app_bar_home"
+    android:background="#E57373">
 
     <Button
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="View all flights"
-        android:id="@+id/buttonAllFlights"/>
-
-    <Button
-        android:text="@string/button_query_flights"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/buttonAllFlights"
-        android:onClick="queryFlights"
-        android:id="@+id/buttonQueryFlights" />
+        android:id="@+id/buttonAllFlights"
+        android:layout_centerInParent="true"
+        android:theme="@style/PrimaryFlatButton"/>
 
 </RelativeLayout>

@@ -3,7 +3,10 @@ package com.nearsoft.flights.flightchecker;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -47,6 +50,12 @@ public class QueryFlights extends AppCompatActivity {
     @BindView(R.id.search)
     Button searchButton;
 
+    @BindView(R.id.drawer_layout)
+    DrawerLayout drawer;
+
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+
     @Inject
     FlightsAPI flightsAPI;
 
@@ -57,8 +66,13 @@ public class QueryFlights extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_query_flights);
+        setSupportActionBar(toolbar);
+        ButterKnife.bind(this);
 
-        ButterKnife.bind(QueryFlights.this);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
 
         Home.getFlightsAPIComponents().inject(this);
 
